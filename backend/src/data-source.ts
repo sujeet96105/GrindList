@@ -14,16 +14,23 @@ const migrations =
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
-  host: process.env.DB_HOST ?? 'localhost',
-  port: Number(process.env.DB_PORT ?? 5432),
-  username: process.env.DB_USER ?? 'postgres',
-  password: process.env.DB_PASS ?? 'postgres',
-  database: process.env.DB_NAME ?? 'grindlist',
+  ...(process.env.DATABASE_URL
+    ? { url: process.env.DATABASE_URL }
+    : {
+        host: process.env.DB_HOST ?? 'localhost',
+        port: Number(process.env.DB_PORT ?? 5432),
+        username: process.env.DB_USER ?? 'postgres',
+        password: process.env.DB_PASS ?? 'postgres',
+        database: process.env.DB_NAME ?? 'grindlist',
+      }),
   entities: [TaskEntity, SubtaskEntity, TagEntity, CategoryEntity, ReminderEntity, UserEntity],
   migrations,
   synchronize: false,
-  ssl:
-    process.env.DB_SSL === 'true'
-      ? { rejectUnauthorized: process.env.DB_SSL_REJECT_UNAUTHORIZED === 'true' }
-      : false,
+  ssl: (() => {
+    const sslValue = (process.env.DB_SSL ?? '').toLowerCase();
+    const sslEnabled = ['true', '1', 'require', 'required'].includes(sslValue);
+    const rejectUnauthorized =
+      (process.env.DB_SSL_REJECT_UNAUTHORIZED ?? '').toLowerCase() === 'true';
+    return sslEnabled ? { rejectUnauthorized } : false;
+  })(),
 });
