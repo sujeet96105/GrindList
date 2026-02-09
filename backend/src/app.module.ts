@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { APP_GUARD } from '@nestjs/core';
 import { seconds, ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { AppController } from './app.controller';
@@ -29,7 +29,7 @@ import { HealthModule } from './health/health.module';
         },
       ],
     }),
-    TypeOrmModule.forRoot(() => {
+    TypeOrmModule.forRoot((() => {
       const sslValue = (process.env.DB_SSL ?? '').toLowerCase();
       const sslEnabled = ['true', '1', 'require', 'required'].includes(sslValue);
       const rejectUnauthorized =
@@ -38,7 +38,7 @@ import { HealthModule } from './health/health.module';
 
       const url = process.env.DATABASE_URL;
 
-      return {
+      const options: TypeOrmModuleOptions = {
         type: 'postgres',
         ...(url
           ? { url }
@@ -60,7 +60,9 @@ import { HealthModule } from './health/health.module';
         synchronize: false,
         ssl,
       };
-    }),
+
+      return options;
+    })()),
     TasksModule,
     SubtasksModule,
     TagsModule,
