@@ -1,0 +1,1201 @@
+# Product Requirements Document (PRD)
+## Modern To-Do List Mobile Application
+
+**Document Version:** 1.0  
+**Date:** February 7, 2026  
+**Author:** Senior Product Manager  
+**Status:** Draft for Review
+
+---
+
+## Executive Summary
+
+This PRD outlines the development of a next-generation to-do list mobile application designed to help users overcome task management fragmentation, procrastination, and lack of productivity insights. Unlike traditional to-do apps, our solution combines intelligent task prioritization, AI-powered task breakdown, and gamification to create a motivating, habit-forming experience.
+
+**Target Launch:** MVP in 6 months (iOS & Android)  
+**Primary Goal:** Achieve 100K+ DAU within 12 months with 65%+ task completion rate  
+**Key Differentiator:** AI-assisted productivity with psychological motivation design
+
+---
+
+## 1. Product Overview
+
+### 1.1 Problem Statement
+
+Modern knowledge workers and students face critical productivity challenges:
+
+- **Task Overwhelm:** Users create long, unstructured task lists that become anxiety-inducing rather than helpful
+- **Poor Prioritization:** 67% of users struggle to identify what to work on next (internal research)
+- **Context Switching:** Average user switches between 3-4 productivity apps daily, losing 23 minutes/day to context switching
+- **Lack of Motivation:** Traditional to-do apps feel like chores, leading to 42% abandonment within 30 days
+- **No Actionable Insights:** Users don't understand their productivity patterns or improvement opportunities
+
+### 1.2 Vision & Objectives
+
+**Vision:** Become the most intelligent and motivating task management companion that helps users not just track tasks, but actually complete them and build better habits.
+
+**Primary Objectives:**
+- Increase user task completion rate by 40% vs. traditional to-do apps
+- Reduce time spent on task management from 15 min/day to 5 min/day
+- Achieve 70%+ 30-day retention rate
+- Build a scalable platform supporting individual and team productivity
+
+### 1.3 Value Proposition
+
+**For Individual Users:**
+- AI breaks down overwhelming tasks into manageable steps automatically
+- Smart prioritization tells you exactly what to do next
+- Gamification and streaks make productivity rewarding
+- Deep analytics reveal your productivity patterns
+
+**For Team Users:**
+- Shared task lists with real-time collaboration
+- Team progress visibility without micromanagement
+- Integration with existing workflows
+
+**Competitive Advantage:**
+- AI-powered task intelligence (not just a digital list)
+- Psychology-based motivation system
+- Offline-first architecture with seamless sync
+- Privacy-focused (no ads, ethical data use)
+
+---
+
+## 2. Target Audience & User Personas
+
+### 2.1 Primary Personas
+
+#### Persona 1: Sarah - The Overwhelmed Student
+
+**Demographics:**
+- Age: 20, University Junior
+- Location: Urban area
+- Device: iPhone 13, uses phone 6+ hours/day
+
+**Goals:**
+- Balance coursework, part-time job, and social life
+- Meet assignment deadlines without last-minute cramming
+- Develop better study habits
+
+**Pain Points:**
+- Gets overwhelmed by semester workload
+- Procrastinates on large assignments
+- Forgets small but important tasks (readings, group meetings)
+- Needs motivation to stay consistent
+
+**Use Cases:**
+- Breaking down research papers into daily chunks
+- Setting reminders for class assignments
+- Tracking study streaks for motivation
+- Using focus mode during study sessions
+
+**Success Criteria:** Completes 80%+ of daily tasks, maintains 7-day streak
+
+---
+
+#### Persona 2: Michael - The Busy Professional
+
+**Demographics:**
+- Age: 32, Marketing Manager
+- Location: Suburban, commutes 45 min
+- Device: Samsung Galaxy S23, laptop for work
+
+**Goals:**
+- Manage multiple work projects simultaneously
+- Separate work and personal tasks
+- Quick capture during meetings
+- Review productivity weekly
+
+**Pain Points:**
+- Constant context switching between tools
+- Needs to prioritize ruthlessly (limited time)
+- Wants insights into time allocation
+- Requires cross-device sync (phone/desktop)
+
+**Use Cases:**
+- Quick task capture via voice during commute
+- Smart priority detection for urgent work items
+- Calendar integration for deadline visibility
+- Weekly productivity reports for self-review
+
+**Success Criteria:** Zero missed deadlines, clear work-life task separation
+
+---
+
+#### Persona 3: Priya - The Team Coordinator
+
+**Demographics:**
+- Age: 28, Project Lead at startup
+- Location: Hybrid worker
+- Device: iPhone 14 Pro, iPad
+
+**Goals:**
+- Coordinate small team (5 people) on shared projects
+- Track team deliverables without constant check-ins
+- Maintain personal task list separately
+
+**Pain Points:**
+- Team uses different tools (Slack, email, spreadsheets)
+- No visibility into task progress without asking
+- Needs delegation capabilities
+- Wants lightweight solution (not full PM software)
+
+**Use Cases:**
+- Creating shared project task lists
+- Assigning tasks to team members
+- Viewing team progress dashboard
+- Separating personal and team workspaces
+
+**Success Criteria:** Team completes 90%+ assigned tasks on time, reduces status update meetings by 50%
+
+---
+
+### 2.2 Secondary Personas
+
+- **Habit Builders:** Users focused on building consistent routines (morning routines, fitness, learning)
+- **Parents:** Managing family schedules, chores, and personal tasks
+- **Freelancers:** Juggling multiple client projects with varying priorities
+
+---
+
+## 3. Key Features
+
+### 3.1 Core Features (MVP - Must Have)
+
+#### F1: Task Management Fundamentals
+- **Create Task:** Quick add via text input, voice input, or share extension
+- **Edit Task:** Modify title, description, due date, priority, tags
+- **Delete Task:** Soft delete with 30-day recovery period
+- **Complete Task:** Swipe or tap to mark complete with satisfying animation
+- **Task Details:** Title (required), description (optional), due date, priority level (High/Medium/Low), tags, subtasks
+
+#### F2: Smart Prioritization
+- **Priority Levels:** High (red), Medium (yellow), Low (gray)
+- **Today View:** Automatically surfaces high-priority and overdue tasks
+- **Sort Options:** By priority, due date, creation date, alphabetical
+
+#### F3: Categories & Tags
+- **Default Categories:** Work, Personal, Shopping, Health, Learning
+- **Custom Tags:** User-created tags with color coding
+- **Filter & Search:** Find tasks by tag, category, keyword
+
+#### F4: Reminders & Notifications
+- **Time-based Reminders:** Set specific time for notification
+- **Location-based Reminders:** Trigger when arriving/leaving location (e.g., "Buy milk" at grocery store)
+- **Smart Reminders:** Suggest reminder times based on task urgency
+
+#### F5: Offline Support
+- **Full Offline Functionality:** All core features work without internet
+- **Background Sync:** Automatic conflict resolution when connection restored
+- **Visual Sync Indicator:** Show sync status clearly
+
+#### F6: Cloud Sync
+- **Cross-Device Sync:** Real-time sync across user's devices
+- **Account System:** Email + password, Google/Apple Sign-In
+- **Data Encryption:** End-to-end encryption for task content
+
+---
+
+### 3.2 Advanced Features (MVP or Phase 2)
+
+#### F7: Subtasks & Checklists
+- **Nested Subtasks:** Break tasks into smaller steps (2 levels deep)
+- **Progress Tracking:** Visual progress bar based on subtask completion
+- **Quick Subtask Add:** Tap to add subtasks without leaving task view
+
+#### F8: Recurring Tasks
+- **Recurrence Patterns:** Daily, weekly, monthly, custom intervals
+- **Skip & Reschedule:** Flexibility to skip instances
+- **Automatic Creation:** New instance created upon completion
+
+#### F9: Calendar Integration
+- **Calendar View:** Month/week view showing tasks by due date
+- **Native Calendar Sync:** Sync tasks to iOS Calendar/Google Calendar
+- **Visual Timeline:** See task distribution across days/weeks
+
+#### F10: List Organization
+- **Multiple Lists:** Unlimited custom lists (Projects, Areas, etc.)
+- **List Sharing:** Share lists with other users (read/write permissions)
+- **Templates:** Save lists as templates for recurring projects
+
+#### F11: Focus Mode
+- **Timer Integration:** Built-in Pomodoro timer (25/5 min default, customizable)
+- **Distraction Blocking:** Minimal UI, hide unrelated tasks
+- **Session Tracking:** Log focus sessions per task
+- **Break Reminders:** Gentle notifications for breaks
+
+---
+
+### 3.3 Innovative / Differentiation Features
+
+#### F12: AI Task Breakdown (KILLER FEATURE)
+- **Smart Decomposition:** AI analyzes complex tasks and suggests subtasks
+  - Example: "Write research paper" → Research topic, Create outline, Write introduction, etc.
+- **Context Awareness:** Considers task type (work project vs. personal errand)
+- **User Learning:** Improves suggestions based on user's acceptance/editing patterns
+- **One-Tap Accept:** Apply AI suggestions with confirmation
+
+#### F13: Smart Priority Detection
+- **Keyword Analysis:** Detects urgency signals ("urgent," "ASAP," "tomorrow")
+- **Deadline Awareness:** Auto-elevates priority as deadline approaches
+- **Pattern Recognition:** Learns which tasks user typically prioritizes
+- **Priority Suggestions:** Recommends priority adjustments with reasoning
+
+#### F14: Gamification & Motivation
+
+**Streak System:**
+- Track consecutive days of task completion
+- Visual streak counter on home screen
+- Streak milestone celebrations (7, 30, 100 days)
+
+**Achievement Badges:**
+- "Early Bird" - Complete 5 tasks before 9 AM
+- "Deep Work" - Complete 10 focus sessions
+- "Consistency King/Queen" - 30-day streak
+- 20+ contextual achievements
+
+**Progress Visualization:**
+- Daily completion ring (Apple Watch style)
+- Weekly productivity graph
+- Monthly summary cards
+
+**Leveling System:**
+- XP earned per completed task (weighted by priority)
+- Levels unlock themes, features, analytics
+
+#### F15: Productivity Analytics
+
+**Personal Dashboard:**
+- Task completion rate (daily/weekly/monthly)
+- Average tasks completed per day
+- Peak productivity hours heatmap
+- Category breakdown (time spent by category)
+
+**Insights & Recommendations:**
+- "You complete 40% more tasks on Tuesdays"
+- "Your productivity drops after 3 PM - schedule deep work earlier"
+- "You've completed 85% of high-priority tasks this month"
+
+**Weekly Report:**
+- Automated weekly email/notification
+- Completed tasks count, streak status
+- Top productive day, completion rate
+- Motivational message
+
+#### F16: Smart Scheduling Assistant
+- **Optimal Task Timing:** Suggests best time to schedule tasks based on productivity patterns
+- **Workload Balancing:** Warns if too many tasks scheduled for one day
+- **Energy-Based Scheduling:** "Schedule this complex task during your peak hours (9-11 AM)"
+
+---
+
+## 4. Functional Requirements
+
+### 4.1 Task Creation Flow
+
+**Trigger Points:**
+- Tap "+" FAB button (primary)
+- Voice command "Add task [task name]"
+- Share extension from other apps
+- Quick add from notification/widget
+
+**User Flow:**
+1. User taps "+" button
+2. Keyboard appears with focus on task title field
+3. User types task title (required)
+4. User optionally taps to expand details:
+   - Description (text area, 500 char limit)
+   - Due date (date picker)
+   - Priority (3 buttons: High/Medium/Low, default: Medium)
+   - Category/Tags (multi-select dropdown)
+   - Subtasks (add/remove)
+5. If task contains complexity keywords → AI suggests "Break down this task?"
+6. User taps "Create" → Task appears in appropriate list with animation
+7. If due date set → System schedules reminder notification
+
+**Validation Rules:**
+- Task title: Required, 1-200 characters
+- Description: Optional, max 500 characters
+- Due date: Cannot be in the past
+- Subtasks: Max 20 per task
+
+**AI Enhancement Point:**
+- On task creation, AI analyzes title + description
+- If detected as complex (>3 actions, project-like keywords), prompt AI breakdown
+- Show suggested subtasks in modal with Edit/Accept/Dismiss options
+
+---
+
+### 4.2 Task Completion Flow
+
+**User Flow - Quick Complete:**
+1. User swipes right on task OR taps checkbox
+2. Satisfying animation plays (checkmark + confetti for milestone tasks)
+3. Task moves to "Completed" section (collapsed by default)
+4. If part of streak → Streak counter increments
+5. If achievement unlocked → Badge notification appears
+6. XP awarded (visible progress bar animation)
+
+**User Flow - Complete with Subtasks:**
+1. If task has incomplete subtasks → Show confirmation: "Task has incomplete subtasks. Mark all complete?"
+2. User confirms → All subtasks marked complete + main task completes
+3. Progress animation shows subtask completion cascade
+
+**Undo Mechanism:**
+- "Undo" toast appears for 5 seconds after completion
+- User can tap to revert completion
+- Automatically dismissed after timeout
+
+---
+
+### 4.3 Reminder & Notification System
+
+**Reminder Types:**
+1. **Time-Based:** Fire at specific date/time
+2. **Location-Based:** Fire when entering/exiting geofence (500m radius)
+3. **Smart Reminders:** System-suggested based on task priority + due date
+
+**Notification Behavior:**
+- **Due Today (Morning):** "You have 5 tasks due today" at 8 AM
+- **Due Soon:** "Task due in 1 hour" notification
+- **Overdue:** "2 tasks overdue" gentle reminder at 6 PM
+- **Streak Risk:** "Complete 1 task to keep your 15-day streak" at 8 PM
+
+**User Controls:**
+- Global notification settings (enable/disable types)
+- Quiet hours (no notifications during sleep)
+- Notification sound customization
+- Per-task reminder customization
+
+**Technical Requirements:**
+- iOS: Use UNUserNotificationCenter
+- Android: WorkManager for scheduled tasks
+- Handle notification permissions gracefully
+- Batch notifications to prevent spam
+
+---
+
+### 4.4 Sync & Conflict Resolution
+
+**Sync Triggers:**
+- App foreground (check for updates)
+- Task created/modified/deleted (immediate sync)
+- Periodic background sync (every 15 min if changes detected)
+
+**Conflict Resolution Strategy:**
+- **Last-Write-Wins:** Most recent modification timestamp wins
+- **Task Deletion:** Deleted state propagates to all devices
+- **User Notification:** If major conflict detected (rare), prompt user to choose version
+- **Merge Logic:** For compatible changes (different fields), merge both
+
+**Offline Queue:**
+- All offline actions stored in local queue
+- Queue processed sequentially when connection restored
+- Visual indicator shows pending sync count
+- Manual "Force Sync" option in settings
+
+---
+
+### 4.5 AI Task Breakdown
+
+**Activation Conditions:**
+- User creates task with >5 words AND action verbs (write, create, build, organize)
+- User explicitly taps "AI Breakdown" button in task detail
+- System detects project-like language ("plan," "develop," "research")
+
+**AI Processing Flow:**
+1. Send task title + description to AI service (anonymized)
+2. AI returns 3-7 suggested subtasks with order
+3. Display in modal: "AI suggests breaking this down:"
+4. User can:
+   - Accept all (converts to subtasks)
+   - Edit individual suggestions
+   - Dismiss entirely
+5. Track user acceptance rate for ML improvement
+
+**AI Prompt Engineering:**
+```
+Task: [User's task title and description]
+Context: [Task category if available]
+
+Generate 3-7 actionable subtasks to complete this task. 
+Each subtask should:
+- Be a single, clear action
+- Start with an action verb
+- Be completable in <2 hours
+- Be logically ordered
+
+Format: JSON array of subtask titles
+```
+
+**Privacy & Transparency:**
+- Clear disclosure: "AI uses your task text to generate suggestions"
+- Option to disable AI features in settings
+- Data not used for advertising, deleted after processing
+
+---
+
+### 4.6 Focus Mode
+
+**Activation:**
+- User taps "Focus" on any task
+- Widget/shortcut: "Start Focus Session"
+
+**Focus Mode UI:**
+- Full-screen task view
+- Large timer (default 25 min Pomodoro)
+- Minimal controls: Start/Pause, Stop Session
+- Hide all other tasks (reduce distraction)
+- Dark background (reduce eye strain)
+
+**Session Flow:**
+1. User starts timer
+2. Optional: Phone enters Do Not Disturb (with permission)
+3. Timer counts down with progress ring
+4. At completion: Celebration + break prompt (5 min break)
+5. Log session to task (focus time tracked)
+6. Award bonus XP for focused sessions
+
+**Session Data Captured:**
+- Duration
+- Completion status (finished vs. abandoned)
+- Time of day
+- Associated task
+
+---
+
+## 5. Non-Functional Requirements
+
+### 5.1 Performance
+
+**Response Time:**
+- App launch: <2 seconds (cold start), <0.5 seconds (warm start)
+- Task creation: <200ms from tap to UI update
+- Sync: Complete within 3 seconds for <100 tasks
+- Search results: <500ms for up to 10,000 tasks
+
+**Scalability:**
+- Support 10,000+ tasks per user without performance degradation
+- Handle 100+ tasks visible in single list smoothly (60 fps scrolling)
+- Sync optimized for differential updates (don't re-download everything)
+
+**Battery & Resource Usage:**
+- Background sync: <2% battery drain per 24 hours
+- Location reminders: Use significant location change (not continuous GPS)
+- Efficient rendering: Recycle views, lazy load large lists
+
+**Data Usage:**
+- Sync protocol: Send only deltas (changed fields)
+- Image compression for any attachments (future feature)
+- Target: <5 MB/month data usage for average user
+
+---
+
+### 5.2 Security & Privacy
+
+**Data Protection:**
+- End-to-end encryption for task content in transit (TLS 1.3)
+- At-rest encryption for local database (iOS Keychain, Android EncryptedSharedPreferences)
+- User data stored in isolated, encrypted cloud storage
+
+**Authentication:**
+- Multi-factor authentication (optional, recommended)
+- Biometric login (Face ID, Touch ID, fingerprint)
+- Session management: 30-day refresh tokens
+- Account recovery via email verification
+
+**Privacy Commitments:**
+- No selling user data to third parties
+- No advertising based on task content
+- Minimal data collection (only what's needed for functionality)
+- GDPR/CCPA compliant: Right to deletion, data portability
+- Anonymous analytics (no PII in analytics events)
+
+**AI Privacy:**
+- Task text sent to AI service is anonymized (no user ID attached)
+- AI processing data deleted within 24 hours
+- Option to disable AI features entirely
+- Clear in-app disclosure of AI data usage
+
+---
+
+### 5.3 Scalability
+
+**User Growth:**
+- Architecture supports 1M+ users in first year
+- Horizontal scaling for API servers (auto-scaling based on load)
+- Database sharding strategy for >10M users
+
+**Infrastructure:**
+- Microservices architecture (task service, sync service, AI service, analytics)
+- CDN for static assets
+- Multi-region deployment for reduced latency
+
+**Data Management:**
+- Archive old completed tasks (>1 year) to cold storage
+- User can manually trigger archive/deletion
+- Efficient indexing for fast queries at scale
+
+---
+
+### 5.4 Accessibility
+
+**WCAG 2.1 AA Compliance:**
+- Full screen reader support (VoiceOver, TalkBack)
+- Semantic labels for all interactive elements
+- Minimum contrast ratio 4.5:1 for text
+- Dynamic text sizing (support iOS/Android system font sizes)
+
+**Inclusive Design:**
+- Colorblind-friendly: Don't rely solely on color (use icons + color)
+- Haptic feedback for important actions
+- Voice control support (Siri Shortcuts, Google Assistant)
+- Keyboard navigation support (for accessibility keyboards)
+
+**Localization Readiness:**
+- Internationalization (i18n) framework in place
+- Support RTL languages (Arabic, Hebrew)
+- Date/time formatting per locale
+- Initial launch: English (US), expand to 5 languages in 6 months
+
+---
+
+## 6. User Experience (UX) Requirements
+
+### 6.1 Core UX Principles
+
+**Simplicity First:**
+- Zero learning curve: Instantly usable without tutorial
+- Progressive disclosure: Advanced features hidden until needed
+- One-tap for common actions (add task, complete task)
+
+**Distraction-Free:**
+- Clean, minimal interface (inspired by Apple Notes, Things 3)
+- Generous whitespace
+- No ads, promotional banners, or clutter
+- Focused color palette (2-3 primary colors)
+
+**Delightful Interactions:**
+- Micro-animations for state changes (spring animations, easing)
+- Satisfying completion animations (confetti, checkmark scale)
+- Haptic feedback on key interactions
+- Smooth transitions between views (no jarring cuts)
+
+---
+
+### 6.2 Visual Design System
+
+**Color Modes:**
+- **Light Mode:** White background, dark text, accent colors for priority
+- **Dark Mode:** True black (#000000) or dark gray (#1C1C1E), high contrast text
+- **Auto Mode:** Switch based on system settings + time of day
+
+**Priority Color Coding:**
+- High: Red (#FF3B30) - demanding attention
+- Medium: Yellow/Orange (#FF9500) - moderate urgency
+- Low: Gray (#8E8E93) - low urgency
+- Completed: Green checkmark
+
+**Typography:**
+- System fonts (San Francisco on iOS, Roboto on Android)
+- Task titles: 17pt Regular
+- Headings: 22pt Bold
+- Body text: 15pt Regular
+
+**Component Library:**
+- Buttons: Rounded (12px radius), filled primary, outline secondary
+- Cards: Subtle shadow, 8px radius, tap to expand
+- Input fields: Underline style (minimal) or outlined
+- Icons: SF Symbols (iOS), Material Icons (Android)
+
+---
+
+### 6.3 Navigation Structure
+
+**Bottom Tab Bar (iOS) / Bottom Nav (Android):**
+1. **Today:** Smart today view (high priority + due today)
+2. **All Tasks:** Complete task list with filters
+3. **Focus:** Quick access to focus mode
+4. **Insights:** Analytics dashboard
+
+**Alternative: Single Screen + Filters:**
+- All tasks on one screen
+- Top filter chips: Today, Upcoming, Completed, All
+- Reduces navigation complexity
+
+**Settings Access:**
+- Profile icon (top right) → Settings panel
+- Settings include: Account, Notifications, Appearance, Data & Privacy, Help
+
+---
+
+### 6.4 Focus Mode UX
+
+**Visual Treatment:**
+- Fade out all UI except active task + timer
+- Dark background (even in light mode) to reduce distractions
+- Task title prominently displayed (28pt)
+- Large circular timer (similar to Apple's Timer app)
+
+**Interaction Model:**
+- Single tap timer: Pause/Resume
+- Swipe up: End session early (with confirmation)
+- Timer completion: Gentle chime + vibration
+
+**Break Screen:**
+- After focus session: "Great work! Take a 5-minute break"
+- Breathing animation or calming visual
+- Option to skip break or start another session
+
+---
+
+### 6.5 Gamification UI Elements
+
+**Streak Display:**
+- Home screen widget: "🔥 15-day streak"
+- Celebrate milestones: Confetti animation at 7, 30, 100 days
+- Streak calendar (mini heatmap showing completion history)
+
+**Achievement Notifications:**
+- Toast notification when badge unlocked
+- Badge detail view: Icon, title, description, unlock date
+- Achievement gallery in profile
+
+**Progress Rings:**
+- Daily completion ring (Home screen): Shows % of today's tasks completed
+- Fills throughout the day, resets at midnight
+- Color gradient based on completion %
+
+**Level System:**
+- Subtle progress bar in profile
+- Level up notification: "Level 5 unlocked! You've gained access to custom themes"
+- No pay-to-win: Levels unlock features, not require payment
+
+---
+
+### 6.6 Empty States & Onboarding
+
+**First Launch:**
+- Welcome screen: "Welcome to [App Name]" with value prop
+- Optional quick tutorial (swipeable cards, 3 screens max)
+- Prompt to allow notifications (with clear benefits explained)
+- Create first task prompt: "What's on your mind?"
+
+**Empty State Messaging:**
+- No tasks: "You're all done! 🎉 Tap + to add a task"
+- No tasks today: "Nothing scheduled for today. Enjoy your free time or add something new."
+- Completed view empty: "Complete your first task to see it here"
+
+**Helpful Illustrations:**
+- Use simple, friendly illustrations for empty states
+- Consistent illustration style throughout app
+
+---
+
+## 7. Analytics & Success Metrics
+
+### 7.1 Key Performance Indicators (KPIs)
+
+**Acquisition Metrics:**
+- App Store downloads
+- Conversion rate: Download → Account creation
+- Attribution sources (organic, ads, referrals)
+
+**Engagement Metrics:**
+- **DAU (Daily Active Users):** Target 100K+ in Year 1
+- **WAU/MAU Ratio:** Target >40% (indicates frequent use)
+- **Session length:** Average time spent per session (target: 3-5 min)
+- **Sessions per user per day:** Target 3+ (morning planning, midday check, evening review)
+
+**Retention Metrics:**
+- **D1 Retention:** % users who return day after install (target: 60%+)
+- **D7 Retention:** Target 50%+
+- **D30 Retention:** Target 70%+ (vs. industry average 42%)
+- **Churn rate:** % users who abandon app (target: <30% monthly)
+
+**Task Metrics:**
+- **Tasks created per user per day:** Target 5-8
+- **Task completion rate:** % tasks marked complete (target: 65%+)
+- **Time to completion:** Average days from creation to completion
+- **Overdue rate:** % tasks that go past due date uncompleted (target: <20%)
+
+**Feature Adoption:**
+- % users using AI breakdown (target: 40%+)
+- % users who enable Focus Mode weekly (target: 50%+)
+- % users viewing Analytics dashboard (target: 30%+)
+- Streak participation: % users with 7+ day streak (target: 25%+)
+
+---
+
+### 7.2 Productivity Metrics (Innovative)
+
+**Productivity Score (0-100):**
+- Weighted formula combining:
+  - Task completion rate (40%)
+  - High-priority task completion (30%)
+  - Streak length (15%)
+  - Focus session completion (15%)
+- Shown in weekly report and analytics dashboard
+- Helps users understand holistic productivity, not just task count
+
+**Efficiency Metrics:**
+- Time saved via AI breakdown (estimated)
+- Tasks completed during peak productivity hours
+- Average task decomposition (% large tasks broken into subtasks)
+
+**Behavioral Insights:**
+- Most productive day of week
+- Most productive time of day (heatmap)
+- Average tasks completed per day (trend line)
+- Category distribution (what % of time on Work vs. Personal)
+
+---
+
+### 7.3 Business Metrics
+
+**Revenue (Future - Freemium Model):**
+- Free tier conversion to Premium (target: 5%+)
+- Average revenue per user (ARPU)
+- Lifetime value (LTV)
+
+**User Satisfaction:**
+- App Store rating (target: 4.5+ stars)
+- Net Promoter Score (NPS) (target: 50+)
+- Support ticket volume (lower is better)
+
+**Growth Metrics:**
+- Referral rate: % users who invite others
+- Viral coefficient (K-factor)
+- Month-over-month user growth rate
+
+---
+
+### 7.4 Analytics Implementation
+
+**Event Tracking (Examples):**
+- `task_created` (properties: priority, has_due_date, has_subtasks, source)
+- `task_completed` (properties: time_to_complete, priority, had_ai_breakdown)
+- `ai_breakdown_requested`
+- `ai_suggestions_accepted` (properties: acceptance_rate, edited)
+- `focus_session_started` (properties: duration_selected, task_priority)
+- `focus_session_completed` (properties: duration_actual, abandoned)
+- `streak_milestone` (properties: days)
+- `achievement_unlocked` (properties: achievement_id)
+- `analytics_viewed`
+
+**Privacy-Preserving Analytics:**
+- No PII in event data (user_id is anonymized hash)
+- Aggregate reporting only
+- User can opt out of analytics in settings
+
+**Analytics Tools:**
+- Mobile analytics: Mixpanel or Amplitude
+- Crash reporting: Sentry or Firebase Crashlytics
+- A/B testing: Firebase Remote Config or Optimizely
+
+---
+
+## 8. Technical Assumptions
+
+### 8.1 Suggested Tech Stack
+
+**Mobile Apps:**
+
+**iOS:**
+- Language: Swift 5.9+
+- UI Framework: SwiftUI (with UIKit for complex components)
+- Architecture: MVVM + Combine (reactive)
+- Local Database: Core Data or Realm Swift
+- Networking: URLSession + async/await
+- Dependencies: Swift Package Manager
+
+**Android:**
+- Language: Kotlin 1.9+
+- UI Framework: Jetpack Compose
+- Architecture: MVVM + Kotlin Coroutines + Flow
+- Local Database: Room (SQLite wrapper)
+- Networking: Retrofit + OkHttp
+- Dependencies: Gradle
+
+**Shared Components (Future):**
+- Consider Kotlin Multiplatform Mobile (KMM) for business logic sharing
+- Or React Native if rapid cross-platform development prioritized (trade-off: native feel)
+
+---
+
+**Backend:**
+- Language: Node.js (TypeScript) or Python (FastAPI)
+- Framework: Express.js or NestJS (Node) / FastAPI (Python)
+- Database: PostgreSQL (relational task data)
+- Cache: Redis (session management, sync optimization)
+- File Storage: AWS S3 or Google Cloud Storage (for future attachments)
+- Message Queue: RabbitMQ or AWS SQS (for async tasks)
+
+**AI Service:**
+- LLM Provider: OpenAI GPT-4 or Anthropic Claude API
+- Custom fine-tuning: For task breakdown optimization (Phase 2)
+- Fallback: Rule-based system if API unavailable
+
+**Infrastructure:**
+- Cloud Provider: AWS, Google Cloud, or Azure
+- Hosting: Kubernetes (EKS/GKE) or serverless (Lambda/Cloud Functions)
+- CDN: CloudFront or Cloudflare
+- Monitoring: DataDog or New Relic
+- CI/CD: GitHub Actions or GitLab CI
+
+---
+
+### 8.2 Cloud Sync Strategy
+
+**Sync Protocol:**
+- RESTful API for basic operations (CRUD)
+- WebSocket for real-time updates (optional, Phase 2)
+- Differential sync: Only send changed fields, not entire objects
+
+**Data Model:**
+- Each task has: `id` (UUID), `user_id`, `title`, `description`, `due_date`, `priority`, `status`, `created_at`, `updated_at`, `deleted_at` (soft delete)
+- Timestamp-based conflict resolution: `updated_at` determines latest version
+- Sync token: Track last sync timestamp per device
+
+**Offline-First Approach:**
+- Local database is source of truth
+- All operations write to local DB first (instant UI update)
+- Background service syncs to cloud when online
+- Conflict resolution on sync failure (prompt user if critical)
+
+**Sync Optimization:**
+- Batch API calls (sync up to 100 tasks per request)
+- Compression: gzip API responses
+- Incremental sync: Use `last_sync_timestamp` to fetch only new/changed tasks
+
+---
+
+### 8.3 Notification System
+
+**Push Notifications:**
+- iOS: Apple Push Notification Service (APNs)
+- Android: Firebase Cloud Messaging (FCM)
+
+**Local Notifications:**
+- Scheduled on-device for time-based reminders
+- More reliable than relying on push (works offline)
+
+**Notification Queue:**
+- Backend maintains notification schedule
+- Sends push at specified time OR device schedules local notification
+- Handle timezone differences correctly
+
+**User Preferences:**
+- Store notification settings in user profile (synced)
+- Allow granular control: Reminders, Streaks, Achievements, Marketing (opt-in only)
+
+---
+
+### 8.4 Location Services (for Location Reminders)
+
+**Implementation:**
+- iOS: Core Location framework
+- Android: Google Play Services Location API
+
+**Geofencing:**
+- Circular geofence (500m radius) around specified location
+- Enter/Exit triggers
+- Battery-efficient: Use significant location change, not continuous GPS
+
+**Privacy:**
+- Request "When in Use" location permission initially
+- Clearly explain why location needed (for location-based reminders)
+- User can disable location reminders in settings
+
+---
+
+## 9. MVP Scope vs Future Scope
+
+### 9.1 MVP (Months 1-6) - MUST HAVE
+
+**Core Task Management:**
+- ✅ Create, edit, delete, complete tasks
+- ✅ Task details: Title, description, due date, priority, tags
+- ✅ Subtasks (1 level deep)
+- ✅ Categories & custom tags
+- ✅ Sort & filter tasks
+
+**Smart Features:**
+- ✅ AI task breakdown (basic version)
+- ✅ Smart priority detection
+- ✅ Time-based reminders
+
+**Productivity Features:**
+- ✅ Focus Mode with Pomodoro timer
+- ✅ Streak tracking
+- ✅ Basic achievements (5-10 badges)
+- ✅ Daily completion ring
+
+**Platform:**
+- ✅ iOS app
+- ✅ Android app
+- ✅ Cloud sync
+- ✅ Offline support
+
+**UX:**
+- ✅ Light & Dark mode
+- ✅ Simple onboarding
+- ✅ Basic analytics (completion rate, streak)
+
+**Infrastructure:**
+- ✅ Account system (email + OAuth)
+- ✅ Secure backend API
+- ✅ Basic analytics tracking
+
+---
+
+### 9.2 Phase 2 (Months 7-12) - NICE TO HAVE
+
+**Enhanced Productivity:**
+- 📅 Calendar integration (sync with Google/Apple Calendar)
+- 📅 Recurring tasks
+- 📅 Location-based reminders
+- 📅 Productivity analytics dashboard (deep insights)
+- 📅 Weekly productivity reports (email/notification)
+
+**Collaboration:**
+- 👥 Shared lists (invite by email)
+- 👥 Task assignment to others
+- 👥 Team progress view
+- 👥 Comments on shared tasks
+
+**Advanced AI:**
+- 🤖 Smart scheduling assistant
+- 🤖 Productivity coaching tips
+- 🤖 AI-generated weekly goals
+
+**Integrations:**
+- 🔗 Email-to-task (forward emails to create tasks)
+- 🔗 Zapier/IFTTT integration
+- 🔗 Slack/Teams integration
+
+**Gamification Expansion:**
+- 🎮 20+ additional achievements
+- 🎮 Custom themes unlocked by level
+- 🎮 Leaderboards (friends only, opt-in)
+
+**Platform:**
+- 💻 Web app (browser-based)
+- ⌚ Apple Watch app
+- 📱 Widgets (iOS/Android home screen)
+
+---
+
+### 9.3 Future Scope (Year 2+)
+
+- Voice-first experience (full voice control)
+- AI meeting notes → task extraction
+- Smart home integrations (Alexa, Google Home)
+- Habit tracking features
+- Project management mode (Gantt charts, dependencies)
+- Time tracking integration
+- Premium templates marketplace
+- API for third-party developers
+- Desktop native apps (macOS, Windows)
+- Browser extension (quick capture)
+
+---
+
+## 10. Risks & Mitigation
+
+### 10.1 Technical Risks
+
+**Risk 1: Sync Conflicts at Scale**
+- **Impact:** Data loss or inconsistent state across devices
+- **Probability:** Medium
+- **Mitigation:**
+  - Robust conflict resolution algorithm (last-write-wins + user prompt for critical conflicts)
+  - Extensive testing with multiple devices
+  - Soft delete with recovery period
+  - Sync logs for debugging
+
+**Risk 2: AI Service Availability**
+- **Impact:** AI task breakdown feature unavailable, user frustration
+- **Probability:** Low-Medium
+- **Mitigation:**
+  - Implement fallback rule-based system
+  - Cache AI responses for common task patterns
+  - Clear user messaging when AI unavailable
+  - Queue AI requests for retry
+  - Make AI optional, not critical path
+
+**Risk 3: Push Notification Delivery**
+- **Impact:** Users miss reminders, reduced app value
+- **Probability:** Medium (APNs/FCM have occasional issues)
+- **Mitigation:**
+  - Prefer local notifications for scheduled reminders
+  - Use push as backup/supplement
+  - Allow users to test notifications in settings
+  - Monitor notification delivery rates
+
+**Risk 4: Battery Drain from Location Services**
+- **Impact:** User complaints, uninstalls
+- **Probability:** Medium if not optimized
+- **Mitigation:**
+  - Use significant location change (not GPS polling)
+  - Make location reminders opt-in
+  - Monitor battery usage in analytics
+  - Provide user control (on/off toggle)
+
+---
+
+### 10.2 User Adoption Risks
+
+**Risk 5: Low User Engagement**
+- **Impact:** Poor retention, failed product-market fit
+- **Probability:** High (productivity app market is crowded)
+- **Mitigation:**
+  - Strong onboarding: Show value immediately (create first task in 10 seconds)
+  - Gamification hooks users early (first achievement within 24 hours)
+  - Push notifications for streak reminders (re-engagement)
+  - A/B test features to optimize engagement
+  - User research: Monthly interviews with churned users
+
+**Risk 6: AI Suggestions Perceived as Inaccurate**
+- **Impact:** Users distrust AI, disable feature
+- **Probability:** Medium (AI not perfect)
+- **Mitigation:**
+  - Set expectations: "AI suggestions to get you started"
+  - Easy to edit/dismiss suggestions
+  - Track acceptance rate, iterate on prompts
+  - Allow users to provide feedback on suggestions
+  - Don't force AI, make it optional enhancement
+
+**Risk 7: Privacy Concerns**
+- **Impact:** Negative press, low trust, regulatory issues
+- **Probability:** Low-Medium
+- **Mitigation:**
+  - Transparent privacy policy (plain language)
+  - Minimal data collection (only functional data)
+  - Clear in-app disclosures for AI usage
+  - GDPR/CCPA compliance from Day 1
+  - Optional features require opt-in (location, AI)
+
+**Risk 8: Competitive Pressure**
+- **Impact:** Losing market share to established players (Todoist, Things, TickTick)
+- **Probability:** High
+- **Mitigation:**
+  - Focus on differentiation: AI + gamification + analytics (unique combo)
+  - Superior UX: Faster, cleaner, more delightful
+  - Community building: Engaged user base as moat
+  - Rapid iteration: Ship features faster than competitors
+  - Strategic partnerships: Integration with popular tools
+
+---
+
+### 10.3 Business Risks
+
+**Risk 9: Monetization Challenges**
+- **Impact:** Unsustainable business model
+- **Probability:** Medium
+- **Mitigation:**
+  - Build engaged free user base first (focus on PMF)
+  - Introduce freemium in Phase 2 (premium features, not paywalls)
+  - Explore B2B: Team plans for companies
+  - Alternative: Sponsorships, partnerships (avoid ads)
+
+**Risk 10: Scaling Costs (AI API)**
+- **Impact:** High per-user costs eat into margins
+- **Probability:** Medium at scale
+- **Mitigation:**
+  - Cache common AI responses
+  - Rate limit AI calls per user (e.g., 10/day for free users)
+  - Explore cheaper AI providers or self-hosted models
+  - Premium tier with unlimited AI usage
+
+---
+
+## 11. Open Questions & Assumptions
+
+### 11.1 Open Questions
+
+**Product Questions:**
+1. **How many tasks is too many?** Should we cap tasks per user (e.g., 500 active tasks) to maintain performance?
+2. **AI accuracy threshold:** What acceptance rate for AI suggestions is "good enough" to keep the feature?
+3. **Gamification balance:** At what point does gamification become overwhelming or feel childish?
+4. **Team collaboration depth:** Should MVP include any team features, or purely individual focus?
+5. **Monetization timing:** When should we introduce premium features? (Day 1, or after X users/months?)
+
+**Technical Questions:**
+1. **Cross-platform code sharing:** Should we invest in KMM/React Native, or keep native apps separate?
+2. **AI model choice:** Fine-tuned smaller model vs. GPT-4 API calls (cost vs. quality trade-off)?
+3. **Real-time sync:** Is WebSocket overkill for MVP, or essential for great UX?
+4. **Data residency:** Do we need region-specific data storage (EU, US, Asia) for compliance?
+
+**UX Questions:**
+1. **Onboarding length:** 3-screen tutorial vs. zero tutorial (learn by doing)?
+2. **Notification frequency:** What's optimal for engagement without being annoying?
+3. **Default view:** Should app open to "Today" or "All Tasks"?
+
+---
+
+### 11.2 Key Assumptions
+
+**User Assumptions:**
+1. Users check their to-do app 2-5 times per day
+2. Average user has 10-30 active tasks at any time
+3. 60%+ users interested in productivity insights
+4. Users value data privacy over free features
+5. Mobile-first users, but will want web access eventually
+
+**Market Assumptions:**
+1. To-do app market growing 15%+ annually
+2. Users willing to try new productivity apps if differentiated
+3. Gamification appeals to 18-35 age demographic most strongly
+4. AI features are becoming table stakes, not differentiators (by 2026)
+
+**Technical Assumptions:**
+1. 95%+ app uptime achievable with standard cloud infrastructure
+2. AI API costs will decrease 20-30% year-over-year
+3. Average task data size: <2 KB (text only)
+4. Sync conflicts affect <5% of operations
+
+**Business Assumptions:**
+1. Free tier sufficient to build user base (no paid marketing initially)
+2. 5% conversion to premium is achievable (industry benchmark)
+3. Team/B2B market has higher LTV than individual users
+4. App Store featuring possible with strong UX + PR
+
+---
+
+## 12. Appendix
+
+### 12.1 Glossary
+
+- **DAU:** Daily Active Users
+- **MAU:** Monthly Active Users
+- **LTV:** Lifetime Value (revenue per user over their lifetime)
+- **Churn:** Users who stop using the app
+- **PMF:** Product-Market Fit
+- **XP:** Experience Points (gamification currency)
+- **Pomodoro:** Time management technique (25 min work, 5 min break)
+
+### 12.2 References
+
+- Apple Human Interface Guidelines (HIG)
+- Google Material Design Guidelines
+- WCAG 2.1 Accessibility Standards
+- GDPR Compliance Checklist
+- App Store Review Guidelines
+
+### 12.3 Version History
+
+- **v1.0 (Feb 7, 2026):** Initial PRD draft for review
+
+---
+
+**Document Status:** Ready for stakeholder review  
+**Next Steps:**
+1. Design team: Create wireframes & mockups based on UX requirements
+2. Engineering team: Provide technical feasibility assessment & timeline estimate
+3. Product team: Validate assumptions through user research (5-10 user interviews)
+4. Executive review: Approve MVP scope & resource allocation
+
+---
+
+**END OF DOCUMENT**
