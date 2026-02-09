@@ -1,0 +1,37 @@
+services:
+  - type: web
+    name: grindlist-backend
+    env: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm install && npm run build
+    startCommand: npm run start:prod
+    autoDeploy: true
+    healthCheckPath: /v1/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: DB_HOST
+        value: your-neon-host
+      - key: DB_PORT
+        value: 5432
+      - key: DB_USER
+        value: your-db-user
+      - key: DB_PASS
+        value: your-db-password
+      - key: DB_NAME
+        value: your-db-name
+      - key: DB_SSL
+        value: "true"
+      - key: DB_SSL_REJECT_UNAUTHORIZED
+        value: "false"
+      - key: JWT_SECRET
+        value: replace-with-strong-secret
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: RATE_LIMIT_TTL
+        value: "60"
+      - key: RATE_LIMIT_LIMIT
+        value: "100"
