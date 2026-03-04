@@ -9,8 +9,7 @@ type SettingsState = Settings & {
 
 const defaults: Settings = {
   notificationsEnabled: true,
-  privacyMode: false,
-  aiEnabled: true,
+
   quietHoursEnabled: false,
   quietHoursStart: '22:00',
   quietHoursEnd: '07:00',

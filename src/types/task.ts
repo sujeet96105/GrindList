@@ -16,11 +16,7 @@ export type Task = {
   recurrenceRule?: 'none' | 'daily' | 'weekly' | 'monthly';
   recurrenceInterval?: number | null;
   recurrenceEndDate?: string | null;
-  locationReminder?: {
-    lat: number;
-    lng: number;
-    radiusMeters: number;
-  } | null;
+
   createdAt: string;
   updatedAt: string;
   deletedAt?: string | null;

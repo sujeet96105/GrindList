@@ -14,7 +14,7 @@ import { useNavigation } from '@react-navigation/native';
 
 export function AllTasksScreen() {
   const { spacing, colors } = useTheme();
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
   const { tasks, tags, categories, toggleComplete, removeTask } = useTasksStore(
     useShallow((state) => ({
       tasks: state.tasks,
@@ -103,7 +103,7 @@ export function AllTasksScreen() {
                     borderColor: active ? colors.accent : colors.border,
                     backgroundColor: active ? colors.accent : colors.surface,
                   },
-                ]}
+                ] as any}
               >
                 <Text variant="caption" color={active ? '#FFFFFF' : colors.textPrimary}>
                   {label}
@@ -113,7 +113,7 @@ export function AllTasksScreen() {
           })}
         </View>
 
-        <Card style={[styles.searchCard, { borderColor: colors.border }]}>
+        <Card style={[styles.searchCard, { borderColor: colors.border }] as any}>
           <Input
             placeholder="Search tasks"
             value={query}
@@ -135,7 +135,7 @@ export function AllTasksScreen() {
                   borderColor: activeCategoryId ? colors.border : colors.accent,
                   backgroundColor: activeCategoryId ? colors.surface : colors.accent,
                 },
-              ]}
+              ] as any}
             >
               <Text variant="caption" color={activeCategoryId ? colors.textPrimary : '#FFFFFF'}>
                 All
@@ -153,7 +153,7 @@ export function AllTasksScreen() {
                       borderColor: active ? colors.accent : colors.border,
                       backgroundColor: active ? colors.accent : colors.surface,
                     },
-                  ]}
+                  ] as any}
                 >
                   <Text variant="caption" color={active ? '#FFFFFF' : colors.textPrimary}>
                     {category.name}
@@ -177,7 +177,7 @@ export function AllTasksScreen() {
                   borderColor: activeTagId ? colors.border : colors.accent,
                   backgroundColor: activeTagId ? colors.surface : colors.accent,
                 },
-              ]}
+              ] as any}
             >
               <Text variant="caption" color={activeTagId ? colors.textPrimary : '#FFFFFF'}>
                 All
@@ -195,7 +195,7 @@ export function AllTasksScreen() {
                       borderColor: active ? colors.accent : colors.border,
                       backgroundColor: active ? colors.accent : colors.surface,
                     },
-                  ]}
+                  ] as any}
                 >
                   <Text variant="caption" color={active ? '#FFFFFF' : colors.textPrimary}>
                     {tag.name}
@@ -222,13 +222,13 @@ export function AllTasksScreen() {
                 onToggleComplete={() => handleToggle(task.id)}
                 onDelete={() => removeTask(task.id)}
                 onPress={() =>
-                  navigation.navigate('TaskDetails' as never, { taskId: task.id } as never)
+                  navigation.navigate('TaskDetails', { taskId: task.id })
                 }
               />
             ))}
           </View>
         ) : (
-          <Card style={[styles.emptyCard, { borderColor: colors.border }]}>
+          <Card style={[styles.emptyCard, { borderColor: colors.border }] as any}>
             <Text variant="title" style={styles.emptyTitle}>
               No tasks match
             </Text>
@@ -238,7 +238,7 @@ export function AllTasksScreen() {
           </Card>
         )}
       </ScrollView>
-      <Fab onPress={() => navigation.navigate('CreateTask' as never)} />
+      <Fab onPress={() => navigation.navigate('CreateTask')} />
     </Screen>
   );
 }

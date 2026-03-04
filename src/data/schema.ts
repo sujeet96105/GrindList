@@ -16,9 +16,7 @@ const schemaStatements = [
     recurrence_rule TEXT,
     recurrence_interval INTEGER,
     recurrence_end_date TEXT,
-    location_lat REAL,
-    location_lng REAL,
-    location_radius REAL,
+
     completion_at TEXT,
     created_at TEXT NOT NULL,
     updated_at TEXT NOT NULL,
@@ -166,27 +164,15 @@ const migrations: Array<() => Promise<void>> = [
     const db = await getDb();
     try {
       await db.executeSql(`ALTER TABLE tasks ADD COLUMN recurrence_rule TEXT`);
-    } catch {}
+    } catch { }
     try {
       await db.executeSql(`ALTER TABLE tasks ADD COLUMN recurrence_interval INTEGER`);
-    } catch {}
+    } catch { }
     try {
       await db.executeSql(`ALTER TABLE tasks ADD COLUMN recurrence_end_date TEXT`);
-    } catch {}
+    } catch { }
   },
-  // v5: location reminders
-  async () => {
-    const db = await getDb();
-    try {
-      await db.executeSql(`ALTER TABLE tasks ADD COLUMN location_lat REAL`);
-    } catch {}
-    try {
-      await db.executeSql(`ALTER TABLE tasks ADD COLUMN location_lng REAL`);
-    } catch {}
-    try {
-      await db.executeSql(`ALTER TABLE tasks ADD COLUMN location_radius REAL`);
-    } catch {}
-  },
+
 ];
 
 export async function initDb() {

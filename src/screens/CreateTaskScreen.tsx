@@ -69,9 +69,7 @@ export function CreateTaskScreen() {
   const [recurrenceRule, setRecurrenceRule] = useState<'none' | 'daily' | 'weekly' | 'monthly'>(
     'none'
   );
-  const [locationLat, setLocationLat] = useState('');
-  const [locationLng, setLocationLng] = useState('');
-  const [locationRadius, setLocationRadius] = useState('250');
+
   const titleTrimmed = title.trim();
   const isValid = titleTrimmed.length > 0;
   const titleCount = title.length;
@@ -93,9 +91,7 @@ export function CreateTaskScreen() {
     setNewSubtask('');
     setRemindAt(null);
     setRecurrenceRule('none');
-    setLocationLat('');
-    setLocationLng('');
-    setLocationRadius('250');
+
   };
 
   const handleCreate = () => {
@@ -111,16 +107,10 @@ export function CreateTaskScreen() {
       recurrenceRule,
       1,
       null,
-      locationLat && locationLng
-        ? {
-            lat: Number(locationLat),
-            lng: Number(locationLng),
-            radiusMeters: Number(locationRadius) || 250,
-          }
-        : null
+
     );
     if (remindAt && task && settings.notificationsEnabled) {
-      const adjustment = adjustReminderForQuietHours(remindAt, settings);
+      const adjustment = adjustReminderForQuietHours(remindAt, settings as any);
       const remindAtIso = adjustment.adjustedAt.toISOString();
       upsertTaskReminder(task.id, remindAtIso)
         .then((reminderId) => scheduleTaskReminder(reminderId, task.title, remindAtIso))
@@ -150,7 +140,7 @@ export function CreateTaskScreen() {
     if (Platform.OS === 'android') {
       DateTimePickerAndroid.open({
         value: remindAt ?? new Date(),
-        mode: 'datetime',
+        mode: 'datetime' as any,
         onChange: (_, date) => {
           if (date) setRemindAt(date);
         },
@@ -208,7 +198,7 @@ export function CreateTaskScreen() {
             {descCount}/500
           </Text>
 
-          <Card style={[styles.priorityCard, { borderColor: colors.border }]}>
+          <Card style={[styles.priorityCard, { borderColor: colors.border }] as any}>
             <Text variant="body">Priority</Text>
             <View style={styles.priorityRow}>
               <Button
@@ -232,7 +222,7 @@ export function CreateTaskScreen() {
             </View>
           </Card>
 
-          <Card style={[styles.priorityCard, { borderColor: colors.border }]}>
+          <Card style={[styles.priorityCard, { borderColor: colors.border }] as any}>
             <Text variant="body">Due date</Text>
             <View style={styles.dueRow}>
               <Text variant="caption" color={colors.textSecondary}>
@@ -252,7 +242,7 @@ export function CreateTaskScreen() {
             />
           ) : null}
 
-          <Card style={[styles.priorityCard, { borderColor: colors.border }]}>
+          <Card style={[styles.priorityCard, { borderColor: colors.border }] as any}>
             <Text variant="body">Recurrence</Text>
             <View style={styles.chipRow}>
               {(['none', 'daily', 'weekly', 'monthly'] as const).map((rule) => {
@@ -271,36 +261,8 @@ export function CreateTaskScreen() {
             </View>
           </Card>
 
-          <Card style={[styles.priorityCard, { borderColor: colors.border }]}>
-            <Text variant="body">Location reminder (foreground only)</Text>
-            <View style={styles.inlineRow}>
-              <Input
-                placeholder="Latitude"
-                value={locationLat}
-                onChangeText={setLocationLat}
-                style={styles.inlineInput}
-                accessibilityLabel="Location latitude"
-              />
-              <Input
-                placeholder="Longitude"
-                value={locationLng}
-                onChangeText={setLocationLng}
-                style={styles.inlineInput}
-                accessibilityLabel="Location longitude"
-              />
-            </View>
-            <View style={styles.inlineRow}>
-              <Input
-                placeholder="Radius (m)"
-                value={locationRadius}
-                onChangeText={setLocationRadius}
-                style={styles.inlineInput}
-                accessibilityLabel="Location radius meters"
-              />
-            </View>
-          </Card>
 
-          <Card style={[styles.priorityCard, { borderColor: colors.border }]}>
+          <Card style={[styles.priorityCard, { borderColor: colors.border }] as any}>
             <Text variant="body">Reminder</Text>
             <View style={styles.dueRow}>
               <Text variant="caption" color={colors.textSecondary}>
@@ -308,14 +270,14 @@ export function CreateTaskScreen() {
               </Text>
               <View style={styles.reminderActions}>
                 {remindAt ? (
-                <Button
-                  label="Clear"
-                  size="sm"
-                  variant="secondary"
-                  onPress={() => setRemindAt(null)}
-                  disabled={!settings.notificationsEnabled}
-                  accessibilityLabel="Clear reminder"
-                />
+                  <Button
+                    label="Clear"
+                    size="sm"
+                    variant="secondary"
+                    onPress={() => setRemindAt(null)}
+                    disabled={!settings.notificationsEnabled}
+                    accessibilityLabel="Clear reminder"
+                  />
                 ) : null}
                 <Button
                   label="Pick time"
@@ -338,7 +300,7 @@ export function CreateTaskScreen() {
             />
           ) : null}
 
-          <Card style={[styles.priorityCard, { borderColor: colors.border }]}>
+          <Card style={[styles.priorityCard, { borderColor: colors.border }] as any}>
             <Text variant="body">Category</Text>
             <View style={styles.chipRow}>
               {categories.length > 0 ? (
@@ -383,7 +345,7 @@ export function CreateTaskScreen() {
             </View>
           </Card>
 
-          <Card style={[styles.priorityCard, { borderColor: colors.border }]}>
+          <Card style={[styles.priorityCard, { borderColor: colors.border }] as any}>
             <Text variant="body">Tags</Text>
             <View style={styles.chipRow}>
               {tags.length > 0 ? (
@@ -434,7 +396,7 @@ export function CreateTaskScreen() {
             </View>
           </Card>
 
-          <Card style={[styles.priorityCard, { borderColor: colors.border }]}>
+          <Card style={[styles.priorityCard, { borderColor: colors.border }] as any}>
             <Text variant="body">Subtasks</Text>
             <View style={styles.subtaskList}>
               {subtasks.length > 0 ? (
@@ -449,9 +411,9 @@ export function CreateTaskScreen() {
                           current.map((item) =>
                             item.id === subtask.id
                               ? {
-                                  ...item,
-                                  status: item.status === 'completed' ? 'active' : 'completed',
-                                }
+                                ...item,
+                                status: item.status === 'completed' ? 'active' : 'completed',
+                              }
                               : item
                           )
                         )

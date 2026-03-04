@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { Achievement, UserStats } from '../types/gamification';
-import { getUserStats, recordTaskCompletion } from '../data/userStatsDao';
+import { recordTaskCompletion } from '../data/userStatsDao';
 import { unlockAchievement } from '../data/achievementsDao';
 
 type StatsState = {
@@ -15,12 +15,12 @@ const ACHIEVEMENT_RULES: Array<{
   code: string;
   isUnlocked: (stats: UserStats, totalCompleted: number) => boolean;
 }> = [
-  { code: 'first_task', isUnlocked: (_, totalCompleted) => totalCompleted >= 1 },
-  { code: 'five_tasks', isUnlocked: (_, totalCompleted) => totalCompleted >= 5 },
-  { code: 'ten_tasks', isUnlocked: (_, totalCompleted) => totalCompleted >= 10 },
-  { code: 'streak_3', isUnlocked: (stats) => stats.currentStreak >= 3 },
-  { code: 'streak_7', isUnlocked: (stats) => stats.currentStreak >= 7 },
-];
+    { code: 'first_task', isUnlocked: (_, totalCompleted) => totalCompleted >= 1 },
+    { code: 'five_tasks', isUnlocked: (_, totalCompleted) => totalCompleted >= 5 },
+    { code: 'ten_tasks', isUnlocked: (_, totalCompleted) => totalCompleted >= 10 },
+    { code: 'streak_3', isUnlocked: (stats) => stats.currentStreak >= 3 },
+    { code: 'streak_7', isUnlocked: (stats) => stats.currentStreak >= 7 },
+  ];
 
 export const useStatsStore = create<StatsState>((set, get) => ({
   stats: null,

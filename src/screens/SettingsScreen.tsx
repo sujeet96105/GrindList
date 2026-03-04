@@ -7,7 +7,7 @@ import { Card } from '../components/Card';
 import { Button } from '../components/Button';
 import { useTheme } from '../theme';
 import { useSettingsStore } from '../store/settingsStore';
-import { useSyncStore } from '../store/syncStore';
+
 import { useShallow } from 'zustand/shallow';
 
 type ToggleRowProps = {
@@ -20,7 +20,7 @@ type ToggleRowProps = {
 function ToggleRow({ title, description, value, onValueChange }: ToggleRowProps) {
   const { colors } = useTheme();
   return (
-    <Card style={[styles.row, { borderColor: colors.border }]}>
+    <Card style={[styles.row, { borderColor: colors.border }] as any}>
       <View style={styles.rowText}>
         <Text variant="body" style={styles.rowTitle}>
           {title}
@@ -45,8 +45,8 @@ export function SettingsScreen() {
   const { spacing, colors } = useTheme();
   const {
     notificationsEnabled,
-    privacyMode,
-    aiEnabled,
+
+
     quietHoursEnabled,
     quietHoursStart,
     quietHoursEnd,
@@ -54,22 +54,15 @@ export function SettingsScreen() {
   } = useSettingsStore(
     useShallow((state) => ({
       notificationsEnabled: state.notificationsEnabled,
-      privacyMode: state.privacyMode,
-      aiEnabled: state.aiEnabled,
+
       quietHoursEnabled: state.quietHoursEnabled,
       quietHoursStart: state.quietHoursStart,
       quietHoursEnd: state.quietHoursEnd,
       setSetting: state.setSetting,
     }))
   );
-  const { pendingCount, lastSyncAt, isSyncing, runSyncNow } = useSyncStore(
-    useShallow((state) => ({
-      pendingCount: state.pendingCount,
-      lastSyncAt: state.lastSyncAt,
-      isSyncing: state.isSyncing,
-      runSyncNow: state.runSyncNow,
-    }))
-  );
+
+
   const [showQuietStartPicker, setShowQuietStartPicker] = useState(false);
   const [showQuietEndPicker, setShowQuietEndPicker] = useState(false);
 
@@ -127,7 +120,7 @@ export function SettingsScreen() {
         <View style={styles.header}>
           <Text variant="heading">Settings</Text>
           <Text variant="body" color={colors.textSecondary}>
-            Notifications, privacy, and AI controls
+            Notifications and reminder controls
           </Text>
         </View>
 
@@ -148,7 +141,7 @@ export function SettingsScreen() {
             onValueChange={(value) => setSetting('quietHoursEnabled', value)}
           />
           {quietHoursEnabled ? (
-            <Card style={[styles.row, { borderColor: colors.border }]}>
+            <Card style={[styles.row, { borderColor: colors.border }] as any}>
               <View style={styles.rowText}>
                 <Text variant="body" style={styles.rowTitle}>
                   Quiet hours window
@@ -175,61 +168,11 @@ export function SettingsScreen() {
           ) : null}
         </View>
 
-        <View style={styles.section}>
-          <Text variant="caption" color={colors.textSecondary}>
-            Privacy
-          </Text>
-          <ToggleRow
-            title="Privacy mode"
-            description="Hide task previews in app switcher."
-            value={privacyMode}
-            onValueChange={(value) => setSetting('privacyMode', value)}
-          />
-        </View>
 
-        <View style={styles.section}>
-          <Text variant="caption" color={colors.textSecondary}>
-            AI
-          </Text>
-          <ToggleRow
-            title="AI features"
-            description="Enable AI task breakdowns and suggestions."
-            value={aiEnabled}
-            onValueChange={(value) => setSetting('aiEnabled', value)}
-          />
-        </View>
 
-        <View style={styles.section}>
-          <Text variant="caption" color={colors.textSecondary}>
-            Sync
-          </Text>
-          <Card style={[styles.row, { borderColor: colors.border }]}>
-            <View style={styles.rowText}>
-              <Text variant="body" style={styles.rowTitle}>
-                Sync status
-              </Text>
-              <Text variant="caption" color={colors.textSecondary}>
-                {isSyncing
-                  ? 'Syncing now...'
-                  : pendingCount > 0
-                    ? `${pendingCount} changes pending`
-                    : 'Up to date'}
-              </Text>
-              {lastSyncAt ? (
-                <Text variant="caption" color={colors.textSecondary}>
-                  Last sync: {new Date(lastSyncAt).toLocaleString()}
-                </Text>
-              ) : null}
-            </View>
-            <Button
-              label="Sync now"
-              size="sm"
-              variant="secondary"
-              onPress={() => runSyncNow()}
-              disabled={isSyncing}
-            />
-          </Card>
-        </View>
+
+
+
         {showQuietStartPicker && Platform.OS === 'ios' ? (
           <DateTimePicker
             value={quietStartDate}

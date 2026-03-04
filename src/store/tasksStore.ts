@@ -5,7 +5,7 @@ import { insertTask, softDeleteTask, updateTask } from '../data/tasksDao';
 import { Category, Tag } from '../types/taxonomy';
 import { insertCategory } from '../data/categoriesDao';
 import { insertTag } from '../data/tagsDao';
-import { enqueueSyncItem } from '../data/syncQueueDao';
+
 import { useStatsStore } from './statsStore';
 import { logEvent } from '../analytics';
 import { getNextRecurringDate } from '../utils/date';
@@ -27,8 +27,7 @@ function createTask(
   subtasks?: SubtaskDraft[],
   recurrenceRule: Task['recurrenceRule'] = 'none',
   recurrenceInterval?: number | null,
-  recurrenceEndDate?: string | null,
-  locationReminder?: Task['locationReminder'] | null
+  recurrenceEndDate?: string | null
 ): Task {
   const now = new Date().toISOString();
   const taskId = `t_${Math.random().toString(36).slice(2, 10)}`;
@@ -57,7 +56,7 @@ function createTask(
     recurrenceRule,
     recurrenceInterval: recurrenceRule === 'none' ? null : recurrenceInterval ?? 1,
     recurrenceEndDate: recurrenceEndDate ?? null,
-    locationReminder: locationReminder ?? null,
+
     createdAt: now,
     updatedAt: now,
     deletedAt: null,
@@ -90,8 +89,7 @@ type TasksState = {
     subtasks?: SubtaskDraft[],
     recurrenceRule?: Task['recurrenceRule'],
     recurrenceInterval?: number | null,
-    recurrenceEndDate?: string | null,
-    locationReminder?: Task['locationReminder'] | null
+    recurrenceEndDate?: string | null
   ) => Task | null;
   updateTask: (task: Task) => void;
   toggleComplete: (id: string) => void;
@@ -146,9 +144,7 @@ export const useTasksStore = create<TasksState>((set, get) => ({
     insertTask(task).catch((err) =>
       set({ lastError: err instanceof Error ? err.message : 'Failed to save task' })
     );
-    enqueueSyncItem('task', task.id, 'upsert', task).catch((err) =>
-      set({ lastError: err instanceof Error ? err.message : 'Failed to queue sync' })
-    );
+
     logEvent('task_created', buildTaskAnalytics(task));
   },
   addTaskFromInput: (
@@ -161,8 +157,7 @@ export const useTasksStore = create<TasksState>((set, get) => ({
     subtasks,
     recurrenceRule,
     recurrenceInterval,
-    recurrenceEndDate,
-    locationReminder
+    recurrenceEndDate
   ) => {
     const activeCount = get().tasks.filter((t) => t.status !== 'completed').length;
     if (activeCount >= ACTIVE_TASK_CAP) {
@@ -179,8 +174,7 @@ export const useTasksStore = create<TasksState>((set, get) => ({
       subtasks,
       recurrenceRule ?? 'none',
       recurrenceInterval ?? null,
-      recurrenceEndDate ?? null,
-      locationReminder ?? null
+      recurrenceEndDate ?? null
     );
     if (activeCount >= ACTIVE_TASK_WARNING) {
       set({ lastError: `Approaching task limit (${ACTIVE_TASK_CAP}). Consider completing tasks.` });
@@ -191,9 +185,7 @@ export const useTasksStore = create<TasksState>((set, get) => ({
     insertTask(task).catch((err) =>
       set({ lastError: err instanceof Error ? err.message : 'Failed to save task' })
     );
-    enqueueSyncItem('task', task.id, 'upsert', task).catch((err) =>
-      set({ lastError: err instanceof Error ? err.message : 'Failed to queue sync' })
-    );
+
     logEvent('task_created', buildTaskAnalytics(task));
     return task;
   },
@@ -203,9 +195,7 @@ export const useTasksStore = create<TasksState>((set, get) => ({
       updateTask(task).catch((err) =>
         set({ lastError: err instanceof Error ? err.message : 'Failed to update task' })
       );
-      enqueueSyncItem('task', task.id, 'upsert', task).catch((err) =>
-        set({ lastError: err instanceof Error ? err.message : 'Failed to queue sync' })
-      );
+
       logEvent('task_updated', buildTaskAnalytics(task));
       return { tasks: updated };
     }),
@@ -215,10 +205,10 @@ export const useTasksStore = create<TasksState>((set, get) => ({
       const updated = state.tasks.map((t) =>
         t.id === id
           ? {
-              ...t,
-              status: t.status === 'completed' ? 'active' : 'completed',
-              updatedAt: new Date().toISOString(),
-            }
+            ...t,
+            status: (t.status === 'completed' ? 'active' : 'completed') as Task['status'],
+            updatedAt: new Date().toISOString(),
+          }
           : t
       );
       const changed = updated.find((t) => t.id === id);
@@ -227,9 +217,7 @@ export const useTasksStore = create<TasksState>((set, get) => ({
         insertTask(changed).catch((err) =>
           set({ lastError: err instanceof Error ? err.message : 'Failed to save task' })
         );
-        enqueueSyncItem('task', changed.id, 'upsert', changed).catch((err) =>
-          set({ lastError: err instanceof Error ? err.message : 'Failed to queue sync' })
-        );
+
         if (changed.status === 'completed' && previous?.status !== 'completed') {
           const completedCount = updated.filter((t) => t.status === 'completed').length;
           useStatsStore.getState().recordCompletion(completedCount).catch((err) =>
@@ -265,9 +253,7 @@ export const useTasksStore = create<TasksState>((set, get) => ({
         insertTask(recurring).catch((err) =>
           set({ lastError: err instanceof Error ? err.message : 'Failed to save task' })
         );
-        enqueueSyncItem('task', recurring.id, 'upsert', recurring).catch((err) =>
-          set({ lastError: err instanceof Error ? err.message : 'Failed to queue sync' })
-        );
+
         logEvent('task_created', buildTaskAnalytics(recurring));
         return { tasks: [recurring, ...updated] };
       }
@@ -278,9 +264,7 @@ export const useTasksStore = create<TasksState>((set, get) => ({
       softDeleteTask(id).catch((err) =>
         set({ lastError: err instanceof Error ? err.message : 'Failed to delete task' })
       );
-      enqueueSyncItem('task', id, 'delete', { id }).catch((err) =>
-        set({ lastError: err instanceof Error ? err.message : 'Failed to queue sync' })
-      );
+
       const removed = state.tasks.find((task) => task.id === id);
       if (removed) {
         logEvent('task_deleted', { priority: removed.priority });
@@ -302,9 +286,7 @@ export const useTasksStore = create<TasksState>((set, get) => ({
     insertTag(tag).catch((err) =>
       set({ lastError: err instanceof Error ? err.message : 'Failed to save tag' })
     );
-    enqueueSyncItem('tag', tag.id, 'upsert', tag).catch((err) =>
-      set({ lastError: err instanceof Error ? err.message : 'Failed to queue sync' })
-    );
+
     return tag;
   },
   addCategoryByName: (name) => {
@@ -319,9 +301,7 @@ export const useTasksStore = create<TasksState>((set, get) => ({
     insertCategory(category).catch((err) =>
       set({ lastError: err instanceof Error ? err.message : 'Failed to save category' })
     );
-    enqueueSyncItem('category', category.id, 'upsert', category).catch((err) =>
-      set({ lastError: err instanceof Error ? err.message : 'Failed to queue sync' })
-    );
+
     return category;
   },
 }));

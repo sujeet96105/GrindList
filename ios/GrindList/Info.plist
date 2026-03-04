@@ -50,5 +50,16 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.grindlist.app</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>grindlist</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>

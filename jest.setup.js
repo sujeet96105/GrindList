@@ -1,3 +1,4 @@
+/* global jest */
 jest.mock('@notifee/react-native', () => require('@notifee/react-native/jest-mock'));
 jest.mock('@react-native-firebase/analytics', () => () => ({
   logEvent: jest.fn(),
@@ -26,7 +27,7 @@ jest.mock('./src/data/categoriesDao', () => ({
 jest.mock('./src/data/settingsDao', () => ({
   getSettings: jest.fn().mockResolvedValue({
     notificationsEnabled: true,
-    privacyMode: false,
+
     aiEnabled: true,
     quietHoursEnabled: false,
     quietHoursStart: '22:00',

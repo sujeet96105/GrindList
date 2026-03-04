@@ -17,7 +17,7 @@ export function FocusScreen() {
   const [isRunning, setIsRunning] = useState(false);
   const [startedAt, setStartedAt] = useState<string | null>(null);
   const [history, setHistory] = useState<FocusSession[]>([]);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     if (!isRunning) {
@@ -59,7 +59,7 @@ export function FocusScreen() {
         intervalRef.current = null;
       }
     };
-  }, [isRunning]);
+  }, [isRunning, durationMinutes, startedAt]);
 
   const minutes = Math.floor(remainingSeconds / 60);
   const seconds = remainingSeconds % 60;
@@ -87,7 +87,7 @@ export function FocusScreen() {
           </Text>
         </View>
 
-        <View style={[styles.timerWrap, { borderColor: colors.border }]}>
+        <View style={[styles.timerWrap, { borderColor: colors.border }] as any}>
           <Text variant="heading" style={styles.timerText}>
             {timeLabel}
           </Text>
@@ -96,7 +96,7 @@ export function FocusScreen() {
           </Text>
         </View>
 
-        <Card style={[styles.durationCard, { borderColor: colors.border }]}>
+        <Card style={[styles.durationCard, { borderColor: colors.border }] as any}>
           <Text variant="body">Duration</Text>
           <View style={styles.durationRow}>
             {[25, 50].map((mins) => (
@@ -162,7 +162,7 @@ export function FocusScreen() {
           />
         </View>
 
-        <Card style={[styles.historyCard, { borderColor: colors.border }]}>
+        <Card style={[styles.historyCard, { borderColor: colors.border }] as any}>
           <Text variant="body">Recent sessions</Text>
           {history.length > 0 ? (
             <View style={styles.historyList}>

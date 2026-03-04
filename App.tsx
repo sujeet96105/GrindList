@@ -3,6 +3,7 @@ import {
   ActivityIndicator,
   Pressable,
   StatusBar,
+  StyleSheet,
   Text,
   View,
   useColorScheme,
@@ -16,8 +17,7 @@ import { getAllCategories } from './src/data/categoriesDao';
 import { getSettings } from './src/data/settingsDao';
 import { useTasksStore } from './src/store/tasksStore';
 import { useSettingsStore } from './src/store/settingsStore';
-import { startSyncWorker } from './src/sync/syncWorker';
-import { useSyncStore } from './src/store/syncStore';
+
 import {
   ensureDefaultAchievements,
   getAllAchievements,
@@ -25,7 +25,7 @@ import {
 } from './src/data/achievementsDao';
 import { getUserStats } from './src/data/userStatsDao';
 import { useStatsStore } from './src/store/statsStore';
-import { checkLocationReminders } from './src/location/locationReminder';
+
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -34,10 +34,10 @@ function App() {
   const setCategories = useTasksStore((state) => state.setCategories);
   const lastError = useTasksStore((state) => state.lastError);
   const clearError = useTasksStore((state) => state.clearError);
-  const tasks = useTasksStore((state) => state.tasks);
   const hydrateSettings = useSettingsStore((state) => state.hydrate);
-  const refreshSyncCounts = useSyncStore((state) => state.refreshCounts);
+
   const hydrateStats = useStatsStore((state) => state.hydrate);
+
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -46,8 +46,15 @@ function App() {
       try {
         await initDb();
         await ensureDefaultAchievements();
-        const [tasks, tags, categories, settings, stats, achievements, unlockedIds] =
-          await Promise.all([
+        const [
+          allTasks,
+          tags,
+          categories,
+          settings,
+          stats,
+          achievements,
+          unlockedIds,
+        ] = await Promise.all([
           getAllTasks(),
           getAllTags(),
           getAllCategories(),
@@ -57,7 +64,7 @@ function App() {
           getUserAchievementIds(),
         ]);
         if (mounted) {
-          setTasks(tasks);
+          setTasks(allTasks);
           setTags(tags);
           setCategories(categories);
           hydrateSettings(settings);
@@ -73,51 +80,26 @@ function App() {
     return () => {
       mounted = false;
     };
-  }, [setTasks, setTags, setCategories, hydrateSettings]);
+  }, [setTasks, setTags, setCategories, hydrateSettings, hydrateStats]);
 
   useEffect(() => {
     if (!ready) return;
-    refreshSyncCounts().catch((err) => console.warn('Failed to load sync counts', err));
-    const handle = startSyncWorker(30000, () => {
-      refreshSyncCounts().catch((err) => console.warn('Failed to refresh sync counts', err));
-    });
-    return () => handle.stop();
-  }, [ready, refreshSyncCounts]);
-
-  useEffect(() => {
-    if (!ready) return;
-    const interval = setInterval(() => {
-      checkLocationReminders(tasks).catch((err) =>
-        console.warn('Location reminder check failed', err)
-      );
-    }, 60000);
-    return () => clearInterval(interval);
-  }, [ready, tasks]);
+  }, [ready]);
 
   return (
     <SafeAreaProvider>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       {ready ? <AppNavigator /> : (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={styles.loadingContainer}>
           <ActivityIndicator />
         </View>
       )}
       {lastError ? (
-        <View
-          style={{
-            position: 'absolute',
-            bottom: 16,
-            left: 16,
-            right: 16,
-            padding: 12,
-            borderRadius: 10,
-            backgroundColor: '#B00020',
-          }}
-        >
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
-            <Text style={{ color: '#FFFFFF', flex: 1 }}>{lastError}</Text>
-            <Pressable onPress={clearError} style={{ paddingHorizontal: 8, paddingVertical: 4 }}>
-              <Text style={{ color: '#FFFFFF', fontWeight: '600' }}>Dismiss</Text>
+        <View style={styles.errorContainer}>
+          <View style={styles.errorRow}>
+            <Text style={styles.errorText}>{lastError}</Text>
+            <Pressable onPress={clearError} style={styles.dismissButton}>
+              <Text style={styles.dismissText}>Dismiss</Text>
             </Pressable>
           </View>
         </View>
@@ -125,5 +107,22 @@ function App() {
     </SafeAreaProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  loadingContainer: { flex: 1, alignItems: 'center', justifyContent: 'center' },
+  errorContainer: {
+    position: 'absolute',
+    bottom: 16,
+    left: 16,
+    right: 16,
+    padding: 12,
+    borderRadius: 10,
+    backgroundColor: '#B00020',
+  },
+  errorRow: { flexDirection: 'row', alignItems: 'center', gap: 12 },
+  errorText: { color: '#FFFFFF', flex: 1 },
+  dismissButton: { paddingHorizontal: 8, paddingVertical: 4 },
+  dismissText: { color: '#FFFFFF', fontWeight: '600' },
+});
 
 export default App;

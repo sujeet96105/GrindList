@@ -13,7 +13,7 @@ import { formatDueDate, isToday } from '../utils/date';
 
 export function TodayScreen() {
   const { spacing, colors } = useTheme();
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
 
   useEffect(() => {
     if (Platform.OS === 'android') {
@@ -77,7 +77,7 @@ export function TodayScreen() {
                     onToggleComplete={() => handleToggle(task.id)}
                     onDelete={() => removeTask(task.id)}
                     onPress={() =>
-                      navigation.navigate('TaskDetails' as never, { taskId: task.id } as never)
+                      navigation.navigate('TaskDetails', { taskId: task.id })
                     }
                   />
                 ))}
@@ -100,7 +100,7 @@ export function TodayScreen() {
                     onToggleComplete={() => handleToggle(task.id)}
                     onDelete={() => removeTask(task.id)}
                     onPress={() =>
-                      navigation.navigate('TaskDetails' as never, { taskId: task.id } as never)
+                      navigation.navigate('TaskDetails', { taskId: task.id })
                     }
                   />
                 ))}
@@ -123,7 +123,7 @@ export function TodayScreen() {
                     onToggleComplete={() => handleToggle(task.id)}
                     onDelete={() => removeTask(task.id)}
                     onPress={() =>
-                      navigation.navigate('TaskDetails' as never, { taskId: task.id } as never)
+                      navigation.navigate('TaskDetails', { taskId: task.id })
                     }
                   />
                 ))}
@@ -131,7 +131,7 @@ export function TodayScreen() {
             ) : null}
           </View>
         ) : (
-          <Card style={[styles.emptyCard, { borderColor: colors.border }]}>
+          <Card style={[styles.emptyCard, { borderColor: colors.border }] as any}>
             <Text variant="title" style={styles.emptyTitle}>
               You're all done!
             </Text>
@@ -141,7 +141,7 @@ export function TodayScreen() {
           </Card>
         )}
       </ScrollView>
-      <Fab onPress={() => navigation.navigate('CreateTask' as never)} />
+      <Fab onPress={() => navigation.navigate('CreateTask')} />
     </Screen>
   );
 }

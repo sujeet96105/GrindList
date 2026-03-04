@@ -11,15 +11,19 @@ import { SettingsScreen } from '../screens/SettingsScreen';
 import { CreateTaskScreen } from '../screens/CreateTaskScreen';
 import { EditTaskScreen } from '../screens/EditTaskScreen';
 import { TaskDetailsScreen } from '../screens/TaskDetailsScreen';
-import { useTheme } from '../theme';
-import { RootStackParamList } from './types';
 import { strings } from '../i18n/strings';
+import { useTheme } from '../theme';
+import { AppStackParamList } from './types';
 
+import TodayIcon from '../assests/icons/today.svg';
+import AllTasksIcon from '../assests/icons/all-task.svg';
+import FocusIcon from '../assests/icons/focus.svg';
+import InsightsIcon from '../assests/icons/insights.svg';
+import SettingsIcon from '../assests/icons/settings.svg';
 enableScreens();
 
 const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator<RootStackParamList>();
-
+const AppStack = createNativeStackNavigator<AppStackParamList>();
 export function AppNavigator() {
   const { colors } = useTheme();
 
@@ -39,39 +43,63 @@ export function AppNavigator() {
 
   return (
     <NavigationContainer theme={navTheme}>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Tabs" component={TabsNavigator} />
-        <Stack.Screen
-          name="CreateTask"
-          component={CreateTaskScreen}
-          options={{ headerShown: true, title: 'New Task' }}
-        />
-        <Stack.Screen
-          name="EditTask"
-          component={EditTaskScreen}
-          options={{ headerShown: true, title: 'Edit Task' }}
-        />
-        <Stack.Screen
-          name="TaskDetails"
-          component={TaskDetailsScreen}
-          options={{ headerShown: true, title: 'Task Details' }}
-        />
-      </Stack.Navigator>
+      <AppStackNavigator />
     </NavigationContainer>
   );
 }
+function AppStackNavigator() {
+  return (
+    <AppStack.Navigator screenOptions={{ headerShown: false }}>
+      <AppStack.Screen name="Tabs" component={TabsNavigator} />
+      <AppStack.Screen
+        name="CreateTask"
+        component={CreateTaskScreen}
+        options={{ headerShown: true, title: 'New Task' }}
+      />
+      <AppStack.Screen
+        name="EditTask"
+        component={EditTaskScreen}
+        options={{ headerShown: true, title: 'Edit Task' }}
+      />
+      <AppStack.Screen
+        name="TaskDetails"
+        component={TaskDetailsScreen}
+        options={{ headerShown: true, title: 'Task Details' }}
+      />
+    </AppStack.Navigator>
+  );
+}
+
+
 
 function TabsNavigator() {
   const { colors } = useTheme();
 
   return (
     <Tab.Navigator
-      screenOptions={{
+      screenOptions={({ route }) => ({
         headerShown: false,
         tabBarStyle: { backgroundColor: colors.surface },
-        tabBarActiveTintColor: colors.accent,
+        tabBarActiveTintColor: '#FFFFFF',
         tabBarInactiveTintColor: colors.textSecondary,
-      }}
+        tabBarIcon: ({ color, size }) => {
+          const props = { width: size, height: size, color };
+          switch (route.name) {
+            case strings.today:
+              return <TodayIcon {...props} />;
+            case strings.allTasks:
+              return <AllTasksIcon {...props} />;
+            case strings.focus:
+              return <FocusIcon {...props} />;
+            case strings.insights:
+              return <InsightsIcon {...props} />;
+            case strings.settings:
+              return <SettingsIcon {...props} />;
+            default:
+              return null;
+          }
+        },
+      })}
     >
       <Tab.Screen name={strings.today} component={TodayScreen} />
       <Tab.Screen name={strings.allTasks} component={AllTasksScreen} />

@@ -70,15 +70,6 @@ export function EditTaskScreen() {
   const [recurrenceRule, setRecurrenceRule] = useState<'none' | 'daily' | 'weekly' | 'monthly'>(
     task?.recurrenceRule ?? 'none'
   );
-  const [locationLat, setLocationLat] = useState<string>(
-    task?.locationReminder?.lat?.toString() ?? ''
-  );
-  const [locationLng, setLocationLng] = useState<string>(
-    task?.locationReminder?.lng?.toString() ?? ''
-  );
-  const [locationRadius, setLocationRadius] = useState<string>(
-    task?.locationReminder?.radiusMeters?.toString() ?? '250'
-  );
 
   const titleTrimmed = title.trim();
   const isValid = titleTrimmed.length > 0;
@@ -100,9 +91,7 @@ export function EditTaskScreen() {
           setTagIds(source.tagIds ?? []);
           setSubtasks(source.subtasks ?? []);
           setRecurrenceRule(source.recurrenceRule ?? 'none');
-          setLocationLat(source.locationReminder?.lat?.toString() ?? '');
-          setLocationLng(source.locationReminder?.lng?.toString() ?? '');
-          setLocationRadius(source.locationReminder?.radiusMeters?.toString() ?? '250');
+
         }
         if (reminder) {
           setReminderId(reminder.id);
@@ -152,19 +141,12 @@ export function EditTaskScreen() {
       recurrenceRule,
       recurrenceInterval: recurrenceRule === 'none' ? null : 1,
       recurrenceEndDate: null,
-      locationReminder:
-        locationLat && locationLng
-          ? {
-              lat: Number(locationLat),
-              lng: Number(locationLng),
-              radiusMeters: Number(locationRadius) || 250,
-            }
-          : null,
+
       updatedAt: new Date().toISOString(),
     };
     updateTask(updated);
     if (remindAt && quietHours.notificationsEnabled) {
-      const adjustment = adjustReminderForQuietHours(remindAt, quietHours);
+      const adjustment = adjustReminderForQuietHours(remindAt, quietHours as any);
       const remindAtIso = adjustment.adjustedAt.toISOString();
       const previousId = reminderId;
       if (previousId) {
@@ -212,7 +194,7 @@ export function EditTaskScreen() {
     if (Platform.OS === 'android') {
       DateTimePickerAndroid.open({
         value: remindAt ?? new Date(),
-        mode: 'datetime',
+        mode: 'datetime' as any,
         onChange: (_, date) => {
           if (date) setRemindAt(date);
         },
@@ -253,7 +235,7 @@ export function EditTaskScreen() {
             accessibilityLabel="Task description"
           />
 
-          <Card style={[styles.priorityCard, { borderColor: colors.border }]}>
+          <Card style={[styles.priorityCard, { borderColor: colors.border }] as any}>
             <Text variant="body">Priority</Text>
             <View style={styles.priorityRow}>
               <Button
@@ -277,7 +259,7 @@ export function EditTaskScreen() {
             </View>
           </Card>
 
-          <Card style={[styles.priorityCard, { borderColor: colors.border }]}>
+          <Card style={[styles.priorityCard, { borderColor: colors.border }] as any}>
             <Text variant="body">Due date</Text>
             <View style={styles.dueRow}>
               <Text variant="caption" color={colors.textSecondary}>
@@ -297,7 +279,7 @@ export function EditTaskScreen() {
             />
           ) : null}
 
-          <Card style={[styles.priorityCard, { borderColor: colors.border }]}>
+          <Card style={[styles.priorityCard, { borderColor: colors.border }] as any}>
             <Text variant="body">Recurrence</Text>
             <View style={styles.chipRow}>
               {(['none', 'daily', 'weekly', 'monthly'] as const).map((rule) => {
@@ -316,36 +298,8 @@ export function EditTaskScreen() {
             </View>
           </Card>
 
-          <Card style={[styles.priorityCard, { borderColor: colors.border }]}>
-            <Text variant="body">Location reminder (foreground only)</Text>
-            <View style={styles.inlineRow}>
-              <Input
-                placeholder="Latitude"
-                value={locationLat}
-                onChangeText={setLocationLat}
-                style={styles.inlineInput}
-                accessibilityLabel="Location latitude"
-              />
-              <Input
-                placeholder="Longitude"
-                value={locationLng}
-                onChangeText={setLocationLng}
-                style={styles.inlineInput}
-                accessibilityLabel="Location longitude"
-              />
-            </View>
-            <View style={styles.inlineRow}>
-              <Input
-                placeholder="Radius (m)"
-                value={locationRadius}
-                onChangeText={setLocationRadius}
-                style={styles.inlineInput}
-                accessibilityLabel="Location radius meters"
-              />
-            </View>
-          </Card>
 
-          <Card style={[styles.priorityCard, { borderColor: colors.border }]}>
+          <Card style={[styles.priorityCard, { borderColor: colors.border }] as any}>
             <Text variant="body">Reminder</Text>
             <View style={styles.dueRow}>
               <Text variant="caption" color={colors.textSecondary}>
@@ -357,14 +311,14 @@ export function EditTaskScreen() {
               </Text>
               <View style={styles.reminderActions}>
                 {remindAt ? (
-                <Button
-                  label="Clear"
-                  size="sm"
-                  variant="secondary"
-                  onPress={() => setRemindAt(null)}
-                  disabled={!quietHours.notificationsEnabled}
-                  accessibilityLabel="Clear reminder"
-                />
+                  <Button
+                    label="Clear"
+                    size="sm"
+                    variant="secondary"
+                    onPress={() => setRemindAt(null)}
+                    disabled={!quietHours.notificationsEnabled}
+                    accessibilityLabel="Clear reminder"
+                  />
                 ) : null}
                 <Button
                   label="Pick time"
@@ -387,7 +341,7 @@ export function EditTaskScreen() {
             />
           ) : null}
 
-          <Card style={[styles.priorityCard, { borderColor: colors.border }]}>
+          <Card style={[styles.priorityCard, { borderColor: colors.border }] as any}>
             <Text variant="body">Category</Text>
             <View style={styles.chipRow}>
               {categories.length > 0 ? (
@@ -432,7 +386,7 @@ export function EditTaskScreen() {
             </View>
           </Card>
 
-          <Card style={[styles.priorityCard, { borderColor: colors.border }]}>
+          <Card style={[styles.priorityCard, { borderColor: colors.border }] as any}>
             <Text variant="body">Tags</Text>
             <View style={styles.chipRow}>
               {tags.length > 0 ? (
@@ -485,7 +439,7 @@ export function EditTaskScreen() {
             </View>
           </Card>
 
-          <Card style={[styles.priorityCard, { borderColor: colors.border }]}>
+          <Card style={[styles.priorityCard, { borderColor: colors.border }] as any}>
             <Text variant="body">Subtasks</Text>
             <View style={styles.subtaskList}>
               {subtasks.length > 0 ? (
@@ -500,12 +454,12 @@ export function EditTaskScreen() {
                           current.map((item) =>
                             item.id === subtask.id
                               ? {
-                                  ...item,
-                                  status: item.status === 'completed' ? 'active' : 'completed',
-                                  completionAt:
-                                    item.status === 'completed' ? null : new Date().toISOString(),
-                                  updatedAt: new Date().toISOString(),
-                                }
+                                ...item,
+                                status: item.status === 'completed' ? 'active' : 'completed',
+                                completionAt:
+                                  item.status === 'completed' ? null : new Date().toISOString(),
+                                updatedAt: new Date().toISOString(),
+                              }
                               : item
                           )
                         )

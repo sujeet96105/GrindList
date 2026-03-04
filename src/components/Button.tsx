@@ -41,8 +41,8 @@ export function Button({
   const backgroundColor = isPrimary
     ? colors.accent
     : isSecondary
-    ? colors.surface
-    : 'transparent';
+      ? colors.surface
+      : 'transparent';
 
   const borderColor = isSecondary ? colors.border : 'transparent';
   const textColor = isPrimary ? '#FFFFFF' : colors.textPrimary;
@@ -63,7 +63,7 @@ export function Button({
           width: fullWidth ? '100%' : undefined,
         },
         style,
-      ]}
+      ] as any}
     >
       <Text variant="body" style={[styles.text, sizeStyles[size].text, { color: textColor }]}>
         {label}

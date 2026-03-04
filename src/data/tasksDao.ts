@@ -48,8 +48,8 @@ export async function insertTask(task: Task) {
   const db = await getDb();
   await db.executeSql(
     `INSERT OR REPLACE INTO tasks
-    (id, title, description, due_date, priority, status, category_id, recurrence_rule, recurrence_interval, recurrence_end_date, location_lat, location_lng, location_radius, completion_at, created_at, updated_at, deleted_at)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    (id, title, description, due_date, priority, status, category_id, recurrence_rule, recurrence_interval, recurrence_end_date, completion_at, created_at, updated_at, deleted_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     [
       task.id,
       task.title,
@@ -61,9 +61,7 @@ export async function insertTask(task: Task) {
       task.recurrenceRule ?? 'none',
       task.recurrenceInterval ?? null,
       task.recurrenceEndDate ?? null,
-      task.locationReminder?.lat ?? null,
-      task.locationReminder?.lng ?? null,
-      task.locationReminder?.radiusMeters ?? null,
+
       null,
       task.createdAt,
       task.updatedAt,
@@ -96,14 +94,7 @@ export async function getAllTasks(): Promise<Task[]> {
       recurrenceRule: row.recurrence_rule ?? 'none',
       recurrenceInterval: row.recurrence_interval,
       recurrenceEndDate: row.recurrence_end_date,
-      locationReminder:
-        row.location_lat !== null && row.location_lng !== null
-          ? {
-              lat: row.location_lat,
-              lng: row.location_lng,
-              radiusMeters: row.location_radius ?? 250,
-            }
-          : null,
+
       createdAt: row.created_at,
       updatedAt: row.updated_at,
       deletedAt: row.deleted_at,
@@ -130,14 +121,7 @@ export async function getTaskById(id: string): Promise<Task | null> {
     recurrenceRule: row.recurrence_rule ?? 'none',
     recurrenceInterval: row.recurrence_interval,
     recurrenceEndDate: row.recurrence_end_date,
-    locationReminder:
-      row.location_lat !== null && row.location_lng !== null
-        ? {
-            lat: row.location_lat,
-            lng: row.location_lng,
-            radiusMeters: row.location_radius ?? 250,
-          }
-        : null,
+
     createdAt: row.created_at,
     updatedAt: row.updated_at,
     deletedAt: row.deleted_at,
@@ -168,9 +152,7 @@ export async function updateTask(task: Task) {
       recurrence_rule = ?,
       recurrence_interval = ?,
       recurrence_end_date = ?,
-      location_lat = ?,
-      location_lng = ?,
-      location_radius = ?,
+
       updated_at = ?,
       deleted_at = ?
     WHERE id = ?`,
@@ -184,9 +166,7 @@ export async function updateTask(task: Task) {
       task.recurrenceRule ?? 'none',
       task.recurrenceInterval ?? null,
       task.recurrenceEndDate ?? null,
-      task.locationReminder?.lat ?? null,
-      task.locationReminder?.lng ?? null,
-      task.locationReminder?.radiusMeters ?? null,
+
       task.updatedAt,
       task.deletedAt ?? null,
       task.id,

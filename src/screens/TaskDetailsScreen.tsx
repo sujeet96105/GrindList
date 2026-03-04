@@ -18,7 +18,7 @@ type RouteParams = {
 
 export function TaskDetailsScreen() {
   const { spacing, colors } = useTheme();
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
   const route = useRoute();
   const { taskId } = route.params as RouteParams;
   const { tasks, categories, tags } = useTasksStore(
@@ -95,7 +95,7 @@ export function TaskDetailsScreen() {
           </Text>
         ) : null}
 
-        <Card style={[styles.metaCard, { borderColor: colors.border }]}>
+        <Card style={[styles.metaCard, { borderColor: colors.border }] as any}>
           <Text variant="caption" color={colors.textSecondary}>
             Due date
           </Text>
@@ -129,16 +129,16 @@ export function TaskDetailsScreen() {
 
         <View style={styles.actions}>
           <Card
-            style={[styles.actionCard, { borderColor: colors.border }]}
+            style={[styles.actionCard, { borderColor: colors.border }] as any}
             onPress={() =>
-              navigation.navigate('EditTask' as never, { taskId: task.id } as never)
+              navigation.navigate('EditTask', { taskId: task.id })
             }
           >
             <Text variant="body">Edit Task</Text>
           </Card>
         </View>
 
-        <Card style={[styles.metaCard, { borderColor: colors.border }]}>
+        <Card style={[styles.metaCard, { borderColor: colors.border }] as any}>
           <Text variant="caption" color={colors.textSecondary}>
             Subtasks
           </Text>
@@ -147,6 +147,7 @@ export function TaskDetailsScreen() {
               {task.subtasks.map((subtask) => (
                 <View key={subtask.id} style={styles.subtaskRow}>
                   <View
+                    // eslint-disable-next-line react-native/no-inline-styles
                     style={[
                       styles.subtaskDot,
                       {
